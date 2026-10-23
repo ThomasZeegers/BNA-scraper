@@ -9,9 +9,10 @@ How the site works (checked October 2026):
         action=mijnbna_filter_architecten, nonce=<from the page>,
         filters[...]=..., page=N
     -> {"success": true, "data": {"accounts": [...], "pagination": {...}}}
-  - Profile pages are rate limited (~125 in a few minutes, then a "Te veel
-    verzoeken" page for 10 minutes); the script detects that page, does not
-    cache it and pauses before retrying.
+  - Profile pages are rate limited (~125, then a "Te veel verzoeken" page that
+    says 10 minutes but lasted longer); the script detects that page, does not
+    cache it and pauses with growing waits before retrying. A full Amsterdam
+    run therefore takes about an hour the first time; reruns are instant.
     16 firms per page (fixed by the server). Each account holds id, name, city,
     disciplines and coordinates, but no address, website, phone or email.
   - Every firm has a server-rendered profile at /architecten/<id>/ with website,
@@ -36,10 +37,10 @@ Outputs (in --out-dir, default: current directory):
   bna_amsterdam.csv       - Amsterdam firms only
 
 Usage:
-  python scrape_bna.py                      # Amsterdam + 25 km (~10 min uncached)
+  python scrape_bna.py                      # Amsterdam + 25 km (~1 h uncached)
   python scrape_bna.py --radius 10          # Amsterdam + 10 km
   python scrape_bna.py --location Haarlem   # another centre
-  python scrape_bna.py --all-nl             # whole directory (~25 min uncached)
+  python scrape_bna.py --all-nl             # whole directory (several hours uncached)
   python scrape_bna.py --limit 20           # quick test on 20 profiles
 """
 
@@ -67,10 +68,11 @@ USER_AGENT = (
     "BNA-directory-research/1.0 (+mailto:thomas@front-materials.com; "
     "polite scraper, 1-2s delay, cached)"
 )
-# After ~125 profile pages in a few minutes the site answers HTTP 200 with this
-# text instead of the profile, and asks to come back in 10 minutes.
+# After ~125 profile pages the site answers HTTP 200 with this text instead of
+# the profile and asks to come back in 10 minutes; in practice the block lasted
+# longer (it looks like an hourly quota), so the pauses grow up to 30 minutes.
 RATE_LIMIT_MARKER = "Te veel verzoeken"
-RATE_LIMIT_WAIT = 11 * 60
+RATE_LIMIT_WAITS = (11, 15, 20, 30, 30, 30, 30, 30)  # minutes
 NL_POSTCODE_RE = re.compile(r"\b([1-9][0-9]{3})\s?([A-Za-z]{2})\b")
 
 FIELDS = [
@@ -127,6 +129,18 @@ class PoliteFetcher:
         return text
 
     def _request(self, method, url, data=None):
+        for wait_min in RATE_LIMIT_WAITS + (None,):
+            text = self._request_once(method, url, data)
+            if text is None or RATE_LIMIT_MARKER not in text:
+                return text
+            if wait_min is None:
+                sys.exit("Still rate limited by bna.nl after several hours; rerun later "
+                         "(everything fetched so far is cached).")
+            print(f"  rate limited by bna.nl at {time.strftime('%H:%M')}, pausing {wait_min} minutes",
+                  file=sys.stderr, flush=True)
+            time.sleep(wait_min * 60)
+
+    def _request_once(self, method, url, data=None):
         for attempt in range(4):
             wait = random.uniform(self.min_delay, self.max_delay) - (time.time() - self._last_request)
             if wait > 0:
@@ -150,13 +164,6 @@ class PoliteFetcher:
                 print(f"  HTTP {resp.status_code} on {url}", file=sys.stderr)
                 return None
             resp.encoding = resp.encoding or "utf-8"
-            if RATE_LIMIT_MARKER in resp.text:
-                if attempt == 3:
-                    break
-                print(f"  rate limited by bna.nl, pausing {RATE_LIMIT_WAIT // 60} minutes as the site asks",
-                      file=sys.stderr, flush=True)
-                time.sleep(RATE_LIMIT_WAIT)
-                continue
             return resp.text
         return None
 
