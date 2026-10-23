@@ -77,7 +77,7 @@ NL_POSTCODE_RE = re.compile(r"\b([1-9][0-9]{3})\s?([A-Za-z]{2})\b")
 
 FIELDS = [
     "name", "profile_url", "street", "postcode", "city", "city_raw",
-    "website", "domain", "email", "phone",
+    "website", "domain", "email", "phone",  # domain: website host, else email domain
     "disciplines", "project_types", "services", "expertises",
     "employees", "distance_km", "latitude", "longitude", "bna_id",
 ]
@@ -342,6 +342,15 @@ def normalise_url(url):
     return url
 
 
+# Mail domains that say nothing about the firm, so they are never used as domain.
+FREEMAIL = {
+    "gmail.com", "googlemail.com", "hotmail.com", "hotmail.nl", "outlook.com", "live.nl",
+    "live.com", "icloud.com", "me.com", "yahoo.com", "xs4all.nl", "kpnmail.nl", "kpnplanet.nl",
+    "planet.nl", "ziggo.nl", "home.nl", "casema.nl", "chello.nl", "hetnet.nl", "zeelandnet.nl",
+    "tele2.nl", "upcmail.nl", "online.nl", "quicknet.nl", "solcon.nl",
+}
+
+
 def domain_of(url):
     if not url:
         return ""
@@ -495,6 +504,9 @@ def main():
         rec["longitude"] = acc.get("Lengtegraad") or ""
         rec["city"] = normalise_city(rec["city_raw"])
         rec["domain"] = domain_of(rec["website"])
+        mail_domain = rec["email"].rpartition("@")[2]
+        if not rec["domain"] and mail_domain and mail_domain not in FREEMAIL:
+            rec["domain"] = mail_domain
         records.append(rec)
         if i % 50 == 0 or i == len(accounts):
             print(f"  {i}/{len(accounts)} (live requests: {fetcher.live_requests}, cache hits: {fetcher.cache_hits})")
