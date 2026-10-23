@@ -1,0 +1,299 @@
+﻿city,firms
+Amsterdam,131
+Rotterdam,74
+Den Haag,36
+Utrecht,31
+Delft,20
+Groningen,17
+Amersfoort,15
+Breda,14
+Eindhoven,14
+Haarlem,13
+Arnhem,11
+Nijmegen,10
+Zwolle,10
+Enschede,8
+Maastricht,8
+Apeldoorn,7
+Almere,6
+Leiden,6
+Dordrecht,5
+Sittard,5
+Tilburg,5
+Alkmaar,4
+Drachten,4
+Emmen,4
+Goes,4
+Gouda,4
+Helmond,4
+Purmerend,4
+'s-Hertogenbosch,3
+Amstelveen,3
+Ede,3
+Ermelo,3
+Gorinchem,3
+Heerenveen,3
+Heerhugowaard,3
+Heerlen,3
+Hilversum,3
+Houten,3
+Huizen,3
+Leeuwarden,3
+Lisserbroek,3
+Oss,3
+Rijswijk Zh,3
+Roosendaal,3
+Rosmalen,3
+Schijndel,3
+Wormerveer,3
+Zaandam,3
+Aalten,2
+Abcoude,2
+Amerongen,2
+Amsterdam-Duivendrecht,2
+Assen,2
+Beek Lb,2
+Bergen op Zoom,2
+Beuningen Gld,2
+Bilthoven,2
+Borculo,2
+Borne,2
+Deurne,2
+Deventer,2
+Diemen,2
+Diepenveen,2
+Doetinchem,2
+Duiven,2
+Elst,2
+Emmeloord,2
+Geldrop,2
+Harderwijk,2
+Harlingen,2
+Heemstede,2
+Hoofddorp,2
+IJsselmuiden,2
+Loosdrecht,2
+Maarssen,2
+Meppel,2
+Nieuwegein,2
+Nieuwkoop,2
+Nieuwpoort,2
+Nijkerk Gld,2
+Noordwijk,2
+Noordwijk Zh,2
+Numansdorp,2
+Oisterwijk,2
+Oldenzaal,2
+Paterswolde,2
+Putten,2
+Rijsbergen,2
+Roelofarendsveen,2
+Roermond,2
+Sneek,2
+Soest,2
+Tiel,2
+Urmond,2
+Veldhoven,2
+Voorburg,2
+Vorden,2
+Wageningen,2
+Wassenaar,2
+Weesp,2
+Zandvoort,2
+Zeddam,2
+Zoetermeer,2
+\'s-Gravenhage,2
+Afferden,1
+Almelo,1
+Almkerk,1
+Alphen Nb,1
+Alphen aan den Rijn,1
+Ammerzoden,1
+Andijk,1
+Balk,1
+Beek en Donk,1
+Beetsterzwaag,1
+Beilen,1
+Bennebroek,1
+Bennekom,1
+Bergen (lb),1
+Bergen Lb,1
+Berkel en Rodenrijs,1
+Berlicum Nb,1
+Bloemendaal,1
+Bodegraven,1
+Boekel,1
+Bolsward,1
+Borger,1
+Born,1
+Boskoop,1
+Boven Leeuwen,1
+Bunnik,1
+Bunschoten Spakenburg,1
+Burdaard,1
+Burgerveen,1
+Burgum,1
+Burum,1
+Bussum,1
+Capelle aan den IJssel,1
+Castricum,1
+Cromvoirt,1
+Culemborg,1
+Dalfsen,1
+De Bilt,1
+De Goorn,1
+De Lutte,1
+De Moer,1
+De Steeg,1
+Delden,1
+Delfgauw,1
+Delfzijl,1
+Doesburg,1
+Dokkum,1
+Dongen,1
+Doorn,1
+Driebergen-Rijsenburg,1
+Dronten,1
+Dussen,1
+Eemnes,1
+Eersel,1
+Elburg,1
+Enter,1
+Esch,1
+Geervliet,1
+Geleen,1
+Gemert,1
+Gendt,1
+Geulle,1
+Giekerk,1
+Gilze,1
+Goirle,1
+Gorssel,1
+Goutum,1
+Groede,1
+Groessen,1
+Grootebroek,1
+Grou,1
+Gulpen,1
+Harmelen,1
+Heesch,1
+Heeswijk-Dinther,1
+Heiloo,1
+Hekendorp,1
+Hengelo,1
+Hengelo Gld,1
+Hengelo Ov,1
+Hoevelaken,1
+Hoorn Nh,1
+IJsselstein,1
+Kampen,1
+Kerkrade,1
+Kockengen,1
+Kortgene,1
+Krommenie,1
+Leiderdorp,1
+Leidschendam,1
+Leunen,1
+Leusden,1
+Lexmond,1
+Lichtenvoorde,1
+Liessel,1
+Limmen,1
+Lochem,1
+Loerbeek,1
+Lopik,1
+Lunteren,1
+Maarheeze,1
+Made,1
+Malden,1
+Medemblik,1
+Middelburg,1
+Mijdrecht,1
+Molenhoek Lb,1
+Monnickendam,1
+Moordrecht,1
+Naaldwijk,1
+Naarden,1
+Nieuwe Niedorp,1
+Nieuwkuijk,1
+Nijetrijne,1
+Nijkerk,1
+Nijverdal,1
+Nispen,1
+Nuenen,1
+Nunspeet,1
+Ochten,1
+Oeffelt,1
+Oirschot,1
+Olst,1
+Onnen,1
+Oosterbeek,1
+Oosterhout Nb,1
+Oosterwolde,1
+Oosthuizen,1
+Oud Beijerland,1
+Oud-Alblas,1
+Ouddorp Zh,1
+Oudemolen Nb,1
+Oudewater,1
+Overveen,1
+Raamsdonksveer,1
+Reeuwijk,1
+Rijssen,1
+Rockanje,1
+Roden,1
+Roggel,1
+Rumpt,1
+Schalkhaar,1
+Scherpenzeel,1
+Schiedam,1
+Sint Michielsgestel,1
+Sleeuwijk,1
+Sliedrecht,1
+Sommelsdijk,1
+Spaarndam,1
+Spijkenisse,1
+Sprundel,1
+Steenderen,1
+Stompetoren,1
+Stramproy,1
+Streefkerk,1
+Tegelen,1
+Terborg,1
+Terneuzen,1
+Tienhoven,1
+Tollebeek,1
+Uitgeest,1
+Urk,1
+Valkenburg Lb,1
+Valkenswaard,1
+Veghel,1
+Velp Gld,1
+Venlo,1
+Vinkeveen,1
+Vleuten,1
+Vlierden,1
+Vlijmen,1
+Voorschoten,1
+Voorst,1
+Vught,1
+Waspik,1
+Weert,1
+Werkendam,1
+Wezep,1
+Wierden,1
+Winschoten,1
+Winterswijk,1
+Woerden,1
+Wolvega,1
+Wormer,1
+Woudrichem,1
+Zeewolde,1
+Zeist,1
+Zelhem,1
+Zevenbergen,1
+Zierikzee,1
+Zuid-Scharwoude,1
+Zutphen,1
+Zwaagdijk-Oost,1
+Zwaagdijk-West,1
