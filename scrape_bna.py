@@ -41,6 +41,7 @@ Outputs (in --out-dir, default: current directory):
 Usage:
   python scrape_bna.py                 # full run (~2.5 h first time, seconds from cache)
   python scrape_bna.py --limit 20      # quick test on 20 profiles
+  python scrape_bna.py --city Amsterdam  # only Amsterdam -> bna_amsterdam.csv
   python scrape_bna.py --refresh       # ignore the cache and refetch everything
 """
 
@@ -479,6 +480,7 @@ def main():
     ap.add_argument("--cache-dir", default="cache")
     ap.add_argument("--out-dir", default=".")
     ap.add_argument("--limit", type=int, default=0, help="only scrape the first N profiles")
+    ap.add_argument("--city", help="only fetch firms in this city and write bna_<city>.csv, e.g. --city Amsterdam")
     ap.add_argument("--refresh", action="store_true", help="ignore the cache and refetch")
     ap.add_argument("--min-delay", type=float, default=1.0)
     ap.add_argument("--max-delay", type=float, default=2.0)
@@ -492,6 +494,10 @@ def main():
     api = FirmListAPI(fetcher)
     firms = api.all_firms()
     ids = sorted(firms)
+    if args.city:
+        # Pre-select on the city the API lists, so only those profiles are fetched.
+        ids = [i for i in ids if normalise_city(clean(
+            firms[i].get("Postadres_plaats") or firms[i].get("Shipping_City"))) == args.city]
     if args.limit:
         ids = ids[:args.limit]
 
@@ -512,6 +518,12 @@ def main():
     rows = dedupe(records)
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    if args.city:
+        rows = [r for r in rows if r["city"] == args.city]
+        path = out / f"bna_{re.sub(r'[^a-z0-9]+', '_', args.city.lower()).strip('_')}.csv"
+        write_csv(path, rows, FIELDS)
+        print(f"\n{len(rows)} firms in {args.city} -> {path}")
+        return
     write_csv(out / "bna_architects_all.csv", rows, FIELDS)
 
     counts = Counter(r["city"] or "(unknown)" for r in rows)
